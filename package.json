@@ -1,0 +1,26 @@
+{
+  "name": "developing-back-employeesmanagerapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bashiroglu/developing-back-employeesmanagerapp.git"
+  },
+  "author": "Abdulla Bashiroghlu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bashiroglu/developing-back-employeesmanagerapp/issues"
+  },
+  "homepage": "https://github.com/bashiroglu/developing-back-employeesmanagerapp#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
