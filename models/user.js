@@ -34,7 +34,8 @@ const userSchema = new Schema({
     enum: ['37', '38', '39', '40', '41', '42', '43', '44']
   },
   groupname: { type: String },
-  equipmentStatus: { type: Array, default: [] }
+  equipments: { type: Array, default: [] },
+  equipmentStatus: { type: String, default: '' }
 });
 
 module.exports = mongoose.model('User', userSchema);
