@@ -1,22 +1,32 @@
+const User = require('../models/user');
 const employees = [
   {
     id: '1',
-    fullname: 'Hasan aslan',
-    shiftType: '12 hours',
-    shift: '18:00-6:00',
-    username: 'hasanaslan'
+    name: 'Hasan',
+    surname: 'Muradli',
+    username: 'muradlihasan',
+    groupname: 'groupname',
+    equipmentStatus: 'equipmentStatus'
   },
   {
     id: '2',
-    fullname: 'hasan murad',
-    shiftType: '8 hours',
-    shift: '22:00-6:00',
-    username: 'hasanmurad'
+    name: 'John',
+    surname: 'Bottom',
+    username: 'johnbottom',
+    groupname: 'groupname',
+    equipmentStatus: 'equipmentStatus'
   }
 ];
 
-const getUsers = (req, res, next) => {
-  res.json({ users: employees });
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({}, '-password');
+  } catch (error) {}
+  res.json({ users: users });
 };
 
+const createUser = (req, res, next) => {};
+
 exports.getUsers = getUsers;
+exports.createUser = createUser;

@@ -19,7 +19,7 @@ app.use(parser.json());
 app.use('/api/v1/users', userRoutes);
 
 mongoose
-  .connect('mongodb://localhost:27017/locationapp')
+  .connect('mongodb://localhost:27017/employeesapp')
   .then(() => {
     app.listen(3003);
   })
