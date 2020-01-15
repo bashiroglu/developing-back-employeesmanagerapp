@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const signup = async (req, res, next) => {
   const { email, name, password } = req.body;
@@ -28,19 +29,29 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword
   });
-  
   try {
-    res.status(201).json({
-      status: 'success',
-      data: {
-        newUser
-      }
-    });
+    await newUser.save();
   } catch (error) {
     console.log(error);
   }
+  let token;
   try {
-    await newUser.save();
+    token = jwt.sign(
+      {
+        userId: newUser.id,
+        email: newUser.email
+      },
+      'donotsharewithanyone',
+      { expiresIn: '1h' }
+    );
+  } catch (error) {}
+
+  try {
+    res.status(201).json({
+      userId: newUser.id,
+      email: newUser.email,
+      token: token
+    });
   } catch (error) {
     console.log(error);
   }
