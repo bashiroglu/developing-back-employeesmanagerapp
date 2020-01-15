@@ -17,13 +17,12 @@ const userSchema = new Schema({
   },
   surname: {
     type: String,
-    required: [true, 'surname is required'],
     maxlength: [18, '3-18 charachters'],
     minlength: [3, '3-18 charachters']
   },
   username: {
     type: String,
-    required: [true, 'username is required'],
+
     maxlength: [18, '6-18 charachters'],
     minlength: [6, '6-18 charachters']
   },
