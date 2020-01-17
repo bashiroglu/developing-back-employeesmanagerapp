@@ -13,3 +13,8 @@ As a Stack and third party libraries, dev dependencies etc:
 This is the first project that is designed and coded by me. In some concepts, I don't know what I am doing. Because I haven't seen them in anywhere, I just thought that it may be possible to do like this and I did. I will list thoso below
 
 1.
+
+
+My mistakes for this project:
+
+1. I did have some idea about routes but not in depth. But thing is, during development I need more ready material to work on. 
