@@ -19,6 +19,10 @@ app.use(parser.json());
 
 app.use('/api/v1/users', userRoutes);
 
+app.all('*', (req, res, next) => {
+  next(new AppError(`can not find ${req.originalUrl}`, 404));
+});
+
 mongoose
   .connect('mongodb://localhost:27017/employeesapp')
   .then(() => {

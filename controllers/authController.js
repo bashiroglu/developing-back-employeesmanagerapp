@@ -1,61 +1,52 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const AppError = require('../utils/AppError');
+const AsyncCatch = require('../utils/AsyncCatch');
 
-const signup = async (req, res, next) => {
+const signup = AsyncCatch(async (req, res, next) => {
   const { email, name, password } = req.body;
 
   let existingUser;
 
-  try {
-    existingUser = await User.findOne({ email: email });
-  } catch (error) {
-    console.log(error);
-  }
+  existingUser = await User.findOne({ email: email });
 
   if (existingUser) {
-    throw Error('this user already exist');
+    return next(new AppError('This user is exist', 400));
   }
 
   let hashedPassword;
-  try {
-    hashedPassword = await bcrypt.hash(password, 12);
-  } catch (error) {
-    console.log(error);
-  }
+
+  hashedPassword = await bcrypt.hash(password, 12);
 
   const newUser = new User({
     name,
     email,
     password: hashedPassword
   });
-  try {
-    await newUser.save();
-  } catch (error) {
-    console.log(error);
+  await newUser.save();
+  if (!newUser) {
+    return next(new AppError('could not save to db ', 400));
   }
   let token;
-  try {
-    token = jwt.sign(
-      {
-        userId: newUser.id,
-        email: newUser.email
-      },
-      'donotsharewithanyone',
-      { expiresIn: '1h' }
-    );
-  } catch (error) {}
-
-  try {
-    res.status(201).json({
+  token = jwt.sign(
+    {
       userId: newUser.id,
-      email: newUser.email,
-      token: token
-    });
-  } catch (error) {
-    console.log(error);
+      email: newUser.email
+    },
+    'donotsharewithanyone',
+    { expiresIn: '1h' }
+  );
+  if (!token) {
+    return next(new AppError('problem with token ', 400));
   }
-};
+
+  res.status(201).json({
+    userId: newUser.id,
+    email: newUser.email,
+    token: token
+  });
+});
 
 const login = async (req, res, next) => {
   try {
