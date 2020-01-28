@@ -48,23 +48,5 @@ const signup = AsyncCatch(async (req, res, next) => {
   });
 });
 
-const login = async (req, res, next) => {
-  try {
-    const newUser = await User.create({
-      email: req.body.email,
-      password: req.body.password
-    });
-
-    res.status(201).json({
-      status: 'success',
-      data: {
-        newUser
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 exports.signup = signup;
 exports.login = login;
