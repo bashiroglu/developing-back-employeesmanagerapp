@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 app.use(parser.json());
 
 app.use('/api/v1/users', userRoutes);
-
+app.use('/api/v1/bookings', bookingRoutes);
 app.all('*', (req, res, next) => {
   next(new AppError(`can not find ${req.originalUrl}`, 404));
 });

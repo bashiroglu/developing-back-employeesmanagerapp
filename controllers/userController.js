@@ -8,7 +8,4 @@ const getUsers = async (req, res, next) => {
   res.json({ users: users });
 };
 
-
-
 exports.getUsers = getUsers;
-
