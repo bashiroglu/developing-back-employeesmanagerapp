@@ -8,13 +8,9 @@ const bookingSchema = new Schema({
     required: [true, 'shiftType is required'],
     enum: ['12 hours', '8 hours']
   },
-  shoeSize: {
-    type: String,
-    enum: ['37', '38', '39', '40', '41', '42', '43', '44'],
-    required: [true, 'shiftType is required']
-  },
+
   day: {
-    type: Date,
+    type: String,
     required: [true, 'day is required']
   },
   fullname: {
