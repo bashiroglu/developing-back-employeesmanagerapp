@@ -1,6 +1,24 @@
 const Booking = require('../models/booking');
 const GlobalError = require('../utils/GlobalError');
 
+const getAllBookings = async (req, res, next) => {
+  const { username } = req.params;
+  console.log(username);
+
+  let bookings;
+  try {
+    bookings = await Booking.find({username});
+  } catch (error) {
+    console.log(error);
+  }
+  if (!bookings) {
+    return next(
+      new GlobalError('We cound not find any bookings for this user', 400)
+    );
+  }
+  res.status(200).json({ bookings });
+};
+
 const createBooking = async (req, res) => {
   const { shiftType, shoeSize, date, fullname, username, shift } = req.body;
   if (!shiftType && !shoeSize && !date && !fullname && !username && !shift) {
@@ -43,3 +61,4 @@ const deleteBooking = async (req, res, next) => {
 };
 exports.createBooking = createBooking;
 exports.deleteBooking = deleteBooking;
+exports.getAllBookings = getAllBookings;
