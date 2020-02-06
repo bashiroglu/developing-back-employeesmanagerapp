@@ -9,9 +9,9 @@ const bookingSchema = new Schema({
     enum: ['12 hours', '8 hours']
   },
 
-  day: {
-    type: String,
-    required: [true, 'day is required']
+  date: {
+    type: Date,
+    required: [true, 'date is required']
   },
   fullname: {
     type: String,
@@ -23,6 +23,13 @@ const bookingSchema = new Schema({
   },
   shift: {
     type: String,
+    enum: [
+      '6:00-18:00',
+      '18:00-6:00',
+      '6:00-14:00',
+      '14:00-22:00',
+      '22:00-6:00'
+    ],
     required: [true, 'shift is required']
   }
 });
