@@ -5,7 +5,7 @@ const GlobalError = require('../utils/GlobalError');
 const AsyncCatch = require('../utils/AsyncCatch');
 
 const signup = AsyncCatch(async (req, res, next) => {
-  const { email, name, password } = req.body;
+  const { email, fullname, password, username } = req.body;
 
   let existingUser;
 
@@ -20,9 +20,10 @@ const signup = AsyncCatch(async (req, res, next) => {
   hashedPassword = await bcrypt.hash(password, 12);
 
   const newUser = new User({
-    name,
+    fullname,
     email,
-    password: hashedPassword
+    password: hashedPassword,
+    username
   });
   await newUser.save();
   if (!newUser) {
@@ -44,7 +45,9 @@ const signup = AsyncCatch(async (req, res, next) => {
   res.status(201).json({
     userId: newUser.id,
     email: newUser.email,
-    token: token
+    token: token,
+    username,
+    fullname
   });
 });
 
@@ -107,6 +110,8 @@ const login = async (req, res, next) => {
   res.json({
     userId: existingUser.id,
     email: existingUser.email,
+    username: existingUser.username,
+    fullname: existingUser.fullname,
     token: token
   });
 };

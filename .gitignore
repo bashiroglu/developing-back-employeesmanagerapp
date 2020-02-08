@@ -1,6 +1,9 @@
 
 # dependencies
 /node_modules
-
+PdfFiles/table.pdf
+*.pdf
 *.env
-/PdfFiles/table.pdf
+
+
+PdfFiles/table.pdf

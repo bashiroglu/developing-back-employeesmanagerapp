@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {
+  fullname: {
     type: String,
     required: [true, 'name is required'],
     maxlength: [18, '3-18 charachters'],
@@ -22,7 +22,6 @@ const userSchema = new Schema({
   },
   username: {
     type: String,
-
     maxlength: [18, '6-18 charachters'],
     minlength: [6, '6-18 charachters']
   },
