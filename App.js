@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const parser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
+const htmlPdfRoutes = require('./routes/htmlPdfRoutes');
 const GlobalError = require('./utils/GlobalError');
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(parser.json());
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/pdf', htmlPdfRoutes);
 app.all('*', (req, res, next) => {
   next(new GlobalError(`can not find ${req.originalUrl}`, 404));
 });
