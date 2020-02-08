@@ -3,8 +3,10 @@ const pdfTemplate = require('../utils/pdfTemplate');
 
 const createPdf = (req, res) => {
   pdf
-    .create(pdfTemplate(), { directory: '/controllers' })
+    .create(pdfTemplate(req.body), { directory: '/controllers' })
     .toFile('./PdfFiles/table.pdf', err => {
+        // console.log(req.body);
+        
       if (err) {
         res.send(Promise.reject());
       }

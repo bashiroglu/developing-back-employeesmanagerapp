@@ -1,258 +1,139 @@
-module.exports = () => {
+module.exports = ({ bookings }) => {
   return `
     
-    <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .table {
-        display: table;
-        text-align: center;
-        width: 90%;
-        margin: 10% auto 0;
-        border-collapse: separate;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 400;
-      }
+     body {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #3b3b3b;
+  -webkit-font-smoothing: antialiased;
+ 
 
-      .table_row {
-        display: table-row;
-      }
+}
+@media screen and (max-width: 580px) {
+  body {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
 
-      .theader {
-        display: table-row;
-      }
+.wrapper {
+  margin: 0 auto;
+  padding: 40px;
+  
+}
 
-      .table_header {
-        display: table-cell;
-        border-bottom: #ccc 1px solid;
-        border-top: #ccc 1px solid;
-        background: #bdbdbd;
-        color: #e5e5e5;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-weight: 700;
-      }
+.table {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+}
+@media screen and (max-width: 580px) {
+  .table {
+    display: block;
+  }
+}
 
-      .table_header:first-child {
-        border-left: #ccc 1px solid;
-        border-top-left-radius: 5px;
-      }
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}
+.row:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+.row.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+.row.green {
+  background: #27ae60;
+}
+.row.blue {
+  background: #2980b9;
+}
+@media screen and (max-width: 580px) {
+  .row {
+    padding: 14px 0 7px;
+    display: block;
+  }
+  .row.header {
+    padding: 0;
+    height: 6px;
+  }
+  .row.header .cell {
+    display: none;
+  }
+  .row .cell {
+    margin-bottom: 10px;
+  }
+  .row .cell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+}
 
-      .table_header:last-child {
-        border-right: #ccc 1px solid;
-        border-top-right-radius: 5px;
-      }
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 2px 16px;
+    display: block;
+  }
+}
 
-      .table_small {
-        display: table-cell;
-      }
-
-      .table_row > .table_small > .table_cell:nth-child(odd) {
-        display: none;
-        background: #bdbdbd;
-        color: #e5e5e5;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-
-      .table_row > .table_small > .table_cell {
-        padding-top: 3px;
-        padding-bottom: 3px;
-        color: #5b5b5b;
-        border-bottom: #ccc 1px solid;
-      }
-
-      .table_row > .table_small:first-child > .table_cell {
-        border-left: #ccc 1px solid;
-      }
-
-      .table_row > .table_small:last-child > .table_cell {
-        border-right: #ccc 1px solid;
-      }
-
-      .table_row:last-child > .table_small:last-child > .table_cell:last-child {
-        border-bottom-right-radius: 5px;
-      }
-
-      .table_row:last-child
-        > .table_small:first-child
-        > .table_cell:last-child {
-        border-bottom-left-radius: 5px;
-      }
-
-      .table_row:nth-child(2n + 3) {
-        background: #e9e9e9;
-      }
-
-      @media screen and (max-width: 900px) {
-        .table {
-          width: 90%;
-        }
-      }
-
-      @media screen and (max-width: 650px) {
-        .table {
-          display: block;
-        }
-        .table_row:nth-child(2n + 3) {
-          background: none;
-        }
-        .theader {
-          display: none;
-        }
-        .table_row > .table_small > .table_cell:nth-child(odd) {
-          display: table-cell;
-          width: 50%;
-        }
-        .table_cell {
-          display: table-cell;
-          width: 50%;
-        }
-        .table_row {
-          display: table;
-          width: 100%;
-          border-collapse: separate;
-          padding-bottom: 20px;
-          margin: 5% auto 0;
-          text-align: center;
-        }
-        .table_small {
-          display: table-row;
-        }
-        .table_row > .table_small:first-child > .table_cell:last-child {
-          border-left: none;
-        }
-        .table_row > .table_small > .table_cell:first-child {
-          border-left: #ccc 1px solid;
-        }
-        .table_row > .table_small:first-child > .table_cell:first-child {
-          border-top-left-radius: 5px;
-          border-top: #ccc 1px solid;
-        }
-        .table_row > .table_small:first-child > .table_cell:last-child {
-          border-top-right-radius: 5px;
-          border-top: #ccc 1px solid;
-        }
-        .table_row > .table_small:last-child > .table_cell:first-child {
-          border-right: none;
-        }
-        .table_row > .table_small > .table_cell:last-child {
-          border-right: #ccc 1px solid;
-        }
-        .table_row > .table_small:last-child > .table_cell:first-child {
-          border-bottom-left-radius: 5px;
-        }
-        .table_row > .table_small:last-child > .table_cell:last-child {
-          border-bottom-right-radius: 5px;
-        }
-      }
     </style>
   </head>
   <body>
-    <div class="table" id="results">
-      <div class="theader">
-        <div class="table_header">Header One</div>
-        <div class="table_header">Header Two</div>
-        <div class="table_header">Header Three</div>
-        <div class="table_header">Header Four</div>
-      </div>
-      <div class="table_row">
-        <div class="table_small">
-          <div class="table_cell">Header One</div>
-          <div class="table_cell">-1.2726</div>
+    <div class="wrapper">
+  
+        <div class="table">
+          
+         
+          
+          ${bookings
+            .map(booking => {
+              return `
+              <div class="row">
+              ${Object.keys(booking)
+                .map(
+                  key => `
+              <div class="cell" data-title="Age">
+                        ${booking[key]}
+                      </div>
+              `
+                )
+                .join('')}
+              </div>
+              `;
+            })
+            .join('')}
+            
+          
         </div>
-        <div class="table_small">
-          <div class="table_cell">Header Two</div>
-          <div class="table_cell">0.1311</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Three</div>
-          <div class="table_cell">-0.4782</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Four</div>
-          <div class="table_cell">-0.9919</div>
-        </div>
-      </div>
-      <div class="table_row">
-        <div class="table_small">
-          <div class="table_cell">Header One</div>
-          <div class="table_cell">-0.89</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Two</div>
-          <div class="table_cell">0.7986</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Three</div>
-          <div class="table_cell">0.876</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Four</div>
-          <div class="table_cell">0.498</div>
-        </div>
-      </div>
-      <div class="table_row">
-        <div class="table_small">
-          <div class="table_cell">Header One</div>
-          <div class="table_cell">-1.1669</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Two</div>
-          <div class="table_cell">0.4949</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Three</div>
-          <div class="table_cell">-0.7113</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Four</div>
-          <div class="table_cell">0.434</div>
-        </div>
-      </div>
-      <div class="table_row">
-        <div class="table_small">
-          <div class="table_cell">Header One</div>
-          <div class="table_cell">0.1996</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Two</div>
-          <div class="table_cell">-0.7693</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Three</div>
-          <div class="table_cell">1.974</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Four</div>
-          <div class="table_cell">-0.959</div>
-        </div>
-      </div>
-      <div class="table_row">
-        <div class="table_small">
-          <div class="table_cell">Header One</div>
-          <div class="table_cell">-1.5998</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Two</div>
-          <div class="table_cell">-0.1149</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Three</div>
-          <div class="table_cell">1.3888</div>
-        </div>
-        <div class="table_small">
-          <div class="table_cell">Header Four</div>
-          <div class="table_cell">-0.0689</div>
-        </div>
-      </div>
-    </div>
+        <script src="helper.js"></script>
   </body>
 </html>
+
+  
 
     `;
 };
