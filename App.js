@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const parser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
+const GlobalError = require('./utils/GlobalError');
 
 const app = express();
 
