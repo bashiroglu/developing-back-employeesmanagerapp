@@ -9,7 +9,7 @@ const signup = AsyncCatch(async (req, res, next) => {
 
   let existingUser;
 
-  existingUser = await User.findOne({ email: email });
+  existingUser = await User.findOne({ email });
 
   if (existingUser) {
     return next(new GlobalError('This user is exist', 400));
@@ -47,7 +47,8 @@ const signup = AsyncCatch(async (req, res, next) => {
     email: newUser.email,
     token: token,
     username,
-    fullname
+    fullname,
+    role: newUser.role
   });
 });
 
@@ -112,7 +113,8 @@ const login = async (req, res, next) => {
     email: existingUser.email,
     username: existingUser.username,
     fullname: existingUser.fullname,
-    token: token
+    token: token,
+    role: existingUser.role
   });
 };
 exports.signup = signup;

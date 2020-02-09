@@ -39,7 +39,8 @@ const userSchema = new Schema({
   },
   groupname: { type: String },
   equipments: { type: Array, default: [] },
-  equipmentStatus: { type: String, default: '' }
+  equipmentStatus: { type: String, default: '' },
+  role: { type: String, default: 'ordinary' }
 });
 
 module.exports = mongoose.model('User', userSchema);
