@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   fullname: {
     type: String,
-    required: [true, 'name is required'],
-    maxlength: [18, '3-18 charachters'],
-    minlength: [3, '3-18 charachters']
+    required: [true, 'fullname is required'],
+    maxlength: [28, '3-28 charachters'],
+    minlength: [3, '3-28 charachters']
   },
   email: {
     type: String,
@@ -37,7 +37,7 @@ const userSchema = new Schema({
     type: String,
     enum: ['37', '38', '39', '40', '41', '42', '43', '44']
   },
-  groupname: { type: String },
+  groupname: { type: String, required: true, default: 'main' },
   equipments: { type: Array, default: [] },
   equipmentStatus: { type: String, default: '' },
   role: { type: String, default: 'ordinary' }

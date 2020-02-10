@@ -5,7 +5,14 @@ const GlobalError = require('../utils/GlobalError');
 const AsyncCatch = require('../utils/AsyncCatch');
 
 const signup = AsyncCatch(async (req, res, next) => {
-  const { email, fullname, password, username } = req.body;
+  const {
+    email,
+    fullname,
+    password,
+    username,
+    groupname,
+    equipments
+  } = req.body;
 
   let existingUser;
 
@@ -23,7 +30,9 @@ const signup = AsyncCatch(async (req, res, next) => {
     fullname,
     email,
     password: hashedPassword,
-    username
+    username,
+    groupname,
+    equipments
   });
   await newUser.save();
   if (!newUser) {
