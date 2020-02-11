@@ -1,6 +1,5 @@
-module.exports = ({ bookings }) => {
+module.exports = ({ items }) => {
   return `
-    
   <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -109,15 +108,15 @@ module.exports = ({ bookings }) => {
           
          
           
-          ${bookings
-            .map(booking => {
+          ${items
+            .map(item => {
               return `
               <div class="row">
-              ${Object.keys(booking)
+              ${Object.keys(item)
                 .map(
                   key => `
               <div class="cell" data-title="Age">
-                        ${booking[key]}
+                        ${item[key]}
                       </div>
               `
                 )
