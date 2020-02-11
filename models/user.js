@@ -25,6 +25,11 @@ const userSchema = new Schema({
     maxlength: [28, '6-28 charachters'],
     minlength: [6, '6-18 charachters']
   },
+  activeStatus: {
+    type: Boolean,
+    required: [true, 'Active Status is required'],
+    default: false
+  },
   password: { type: String, required: true },
   passwordСonfirm: { type: String },
   imageUrl: { type: String },

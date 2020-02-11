@@ -32,7 +32,8 @@ const signup = AsyncCatch(async (req, res, next) => {
     password: hashedPassword,
     username,
     groupname,
-    equipments
+    equipments,
+    activeStatus: false
   });
   await newUser.save();
   if (!newUser) {
