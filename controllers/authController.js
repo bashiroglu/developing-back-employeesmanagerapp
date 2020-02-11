@@ -39,26 +39,29 @@ const signup = AsyncCatch(async (req, res, next) => {
   if (!newUser) {
     return next(new GlobalError('could not save to db ', 400));
   }
-  let token;
-  token = jwt.sign(
-    {
-      userId: newUser.id,
-      email: newUser.email
-    },
-    'donotsharewithanyone',
-    { expiresIn: '1h' }
-  );
-  if (!token) {
-    return next(new GlobalError('problem with token ', 400));
-  }
+  // let token;
+  // token = jwt.sign(
+  //   {
+  //     userId: newUser.id,
+  //     email: newUser.email
+  //   },
+  //   'donotsharewithanyone',
+  //   { expiresIn: '1h' }
+  // );
+  // if (!token) {
+  //   return next(new GlobalError('problem with token ', 400));
+  // }
 
+  // res.status(201).json({
+  //   userId: newUser.id,
+  //   email: newUser.email,
+  //   token: token,
+  //   username,
+  //   fullname,
+  //   role: newUser.role
+  // });
   res.status(201).json({
-    userId: newUser.id,
-    email: newUser.email,
-    token: token,
-    username,
-    fullname,
-    role: newUser.role
+    operation: 'success'
   });
 });
 
