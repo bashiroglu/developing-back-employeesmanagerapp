@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   username: {
     type: String,
-    maxlength: [18, '6-18 charachters'],
+    maxlength: [28, '6-28 charachters'],
     minlength: [6, '6-18 charachters']
   },
   password: { type: String, required: true },
