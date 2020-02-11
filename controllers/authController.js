@@ -86,6 +86,10 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
+  if (!existingUser.activeStatus) {
+    const error = new GlobalError('this is not active user', 401);
+    return next(error);
+  }
 
   let isValidPassword = false;
   try {

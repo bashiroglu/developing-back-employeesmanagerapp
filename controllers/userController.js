@@ -36,7 +36,8 @@ const addUsers = async (req, res, next) => {
       email,
       password: hashedPassword,
       username,
-      groupname
+      groupname,
+      activeStatus: true
     });
     await newUser.save();
 
