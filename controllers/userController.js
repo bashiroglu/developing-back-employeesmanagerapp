@@ -8,7 +8,14 @@ const getUsers = async (req, res, next) => {
   try {
     users = await User.find({}, '-password');
   } catch (error) {}
-  res.json({ users: users });
+  res.json({ users });
+};
+const getInactiveUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({ activeStatus: false }, '-password');
+  } catch (error) {}
+  res.json({ users });
 };
 
 const addUsers = async (req, res, next) => {
@@ -51,4 +58,5 @@ const addUsers = async (req, res, next) => {
 };
 
 exports.getUsers = getUsers;
+exports.getInactiveUsers = getInactiveUsers;
 exports.addUsers = addUsers;
