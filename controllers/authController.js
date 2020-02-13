@@ -134,5 +134,22 @@ const login = async (req, res, next) => {
     role: existingUser.role
   });
 };
+const updatePasword = async (req, res) => {
+  const { email, password, passwordConfirm, currentPassword } = req.body;
+  const user = await User.find({ email }).select('+password');
+  if (!user) {
+    return next(new GlobalError('We can not find you', 401));
+  }
+
+  console.log(user);
+
+  user.password = password;
+  user.password = passwordConfirm;
+  await user.save();
+  res.json({
+    status: 'done'
+  });
+};
 exports.signup = signup;
 exports.login = login;
+exports.updatePasword = updatePasword;

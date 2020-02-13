@@ -30,7 +30,7 @@ const userSchema = new Schema({
     required: [true, 'Active Status is required'],
     default: false
   },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
   passwordСonfirm: { type: String },
   imageUrl: { type: String },
   bookings: { type: String },
