@@ -56,7 +56,23 @@ const addUsers = async (req, res, next) => {
   // } catch (error) {}
   res.json({ status: 'success' });
 };
+const activateUsers = async (req, res, next) => {
+  console.log(req.body);
 
+  const { userIds } = req.body;
+  userIds.map(async userId => {
+    let user;
+    try {
+      user = await User.findById(userId);
+      user.activeStatus = true;
+      user.save();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  res.json({ status: 'success' });
+};
 exports.getUsers = getUsers;
 exports.getInactiveUsers = getInactiveUsers;
+exports.activateUsers = activateUsers;
 exports.addUsers = addUsers;

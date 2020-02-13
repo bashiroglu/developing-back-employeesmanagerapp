@@ -14,8 +14,12 @@ This is the first project that is designed and coded by me. In some concepts, I 
 
 1.
 
-My mistakes for this project:
+### My mistakes for this project:
 
 1. I did have some idea about routes but not in depth. But thing is, during development I need more ready material to work on.
 
 2. I understand that it was very important to have clear(solid) roadmap of building app. So kinda todos in user friendly interface life trello.
+
+### Weak sides of project or my mistakes in terms of code which I chose
+
+1. I always response success: 'done' or any other stupid response which don't give any information about process.
