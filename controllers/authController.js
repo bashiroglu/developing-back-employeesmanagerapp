@@ -70,7 +70,7 @@ const login = async (req, res, next) => {
 
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email });
+    existingUser = await User.findOne({ email: email }).select('+password');
   } catch (err) {
     const error = new GlobalError(
       'Logging in failed, please try again later.',
@@ -86,6 +86,8 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
+  console.log(existingUser);
+
   if (!existingUser.activeStatus) {
     const error = new GlobalError('this is not active user', 401);
     return next(error);
@@ -138,7 +140,11 @@ const updatePasword = async (req, res, next) => {
   const { email, password, passwordConfirm, currentPassword } = req.body;
   let user;
   console.log(email, password, passwordConfirm, currentPassword);
-
+  if (!(passwordConfirm === password)) {
+    return next(
+      new GlobalError('passwordConfirm is not equal to password', 401)
+    );
+  }
   try {
     user = await User.find({ email }).select('+password');
     user = user[0];
