@@ -13,7 +13,8 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'email is required'],
     maxlength: [28, '6-28 charachters'],
-    minlength: [6, '6-28 charachters']
+    minlength: [6, '6-28 charachters'],
+    unique:true
   },
   surname: {
     type: String,

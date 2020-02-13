@@ -134,18 +134,52 @@ const login = async (req, res, next) => {
     role: existingUser.role
   });
 };
-const updatePasword = async (req, res) => {
+const updatePasword = async (req, res, next) => {
   const { email, password, passwordConfirm, currentPassword } = req.body;
-  const user = await User.find({ email }).select('+password');
+  let user;
+  console.log(email, password, passwordConfirm, currentPassword);
+
+  try {
+    user = await User.find({ email }).select('+password');
+    user = user[0];
+  } catch (error) {
+    console.log(error);
+  }
   if (!user) {
     return next(new GlobalError('We can not find you', 401));
   }
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(currentPassword, user.password);
+  } catch (err) {
+    const error = new GlobalError(
+      'problem with current password checking',
+      500
+    );
+    return next(error);
+  }
+  if (!isValidPassword) {
+    const error = new GlobalError(
+      'Invalid credentials, you propabbly do not know your password try to reset it.',
+      401
+    );
+    return next(error);
+  }
+  let newHashedPassword;
 
-  console.log(user);
+  try {
+    newHashedPassword = await bcrypt.hash(password, 12);
+  } catch (error) {
+    console.log(error);
+  }
 
-  user.password = password;
-  user.password = passwordConfirm;
-  await user.save();
+  user.password = newHashedPassword;
+
+  try {
+    await user.save();
+  } catch (error) {
+    console.log(error);
+  }
   res.json({
     status: 'done'
   });
