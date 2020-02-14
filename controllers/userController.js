@@ -72,7 +72,22 @@ const activateUsers = async (req, res, next) => {
   });
   res.json({ status: 'success' });
 };
+const getUser = async (req, res, next) => {
+  const { email } = req.params;
+  // console.log(req.body.email);
+
+  let user;
+  try {
+    user = await User.findOne({ email });
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.json({ status: 'success', user });
+};
 exports.getUsers = getUsers;
+exports.getUser = getUser;
+// exports.updateUser = updateUser;
 exports.getInactiveUsers = getInactiveUsers;
 exports.activateUsers = activateUsers;
 exports.addUsers = addUsers;

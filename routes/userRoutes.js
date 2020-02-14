@@ -6,6 +6,8 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/', userController.getUsers);
+router.get('/details/:email', userController.getUser);
+// router.post('/update-details', userController.updateUser);
 router.get('/inactive-users', userController.getInactiveUsers);
 router.post('/signup-many', userController.addUsers);
 router.post('/activate-users', userController.activateUsers);
