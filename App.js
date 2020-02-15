@@ -5,8 +5,11 @@ const userRoutes = require('./routes/userRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const htmlPdfRoutes = require('./routes/htmlPdfRoutes');
 const GlobalError = require('./utils/GlobalError');
+const dotenv = require('dotenv');
 
 const app = express();
+
+dotenv.config({ path: './config.env' });
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,3 +39,4 @@ mongoose
     console.log('connected to DB successfully');
   })
   .catch(error => console.log(error));
+

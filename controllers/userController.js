@@ -2,18 +2,20 @@ const randomId = require('../utils/randomId');
 const User = require('../models/user');
 const GlobalError = require('../utils/GlobalError');
 const bcrypt = require('bcryptjs');
+const Email = require('../utils/email');
+
 
 const getUsers = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({}, '-password');
+    users = await User.find({});
   } catch (error) {}
   res.json({ users });
 };
 const getInactiveUsers = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({ activeStatus: false }, '-password');
+    users = await User.find({ activeStatus: false });
   } catch (error) {}
   res.json({ users });
 };
@@ -43,17 +45,20 @@ const addUsers = async (req, res, next) => {
       email,
       password: hashedPassword,
       username,
-      groupname,
+      groupname: groupname ? groupname : 'main',
       activeStatus: true
     });
     await newUser.save();
 
-    console.log(email, groupname, fullname, password);
+    new Email({
+      password: password,
+      fullname,
+      email,
+      groupname: newUser.groupname,
+      username
+    }).send(`Welcome to our company ${fullname}`);
   });
-  // let users;
-  // try {
-  //   users = await User.find({}, '-password');
-  // } catch (error) {}
+
   res.json({ status: 'success' });
 };
 const activateUsers = async (req, res, next) => {

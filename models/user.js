@@ -14,7 +14,7 @@ const userSchema = new Schema({
     required: [true, 'email is required'],
     maxlength: [28, '6-28 charachters'],
     minlength: [6, '6-28 charachters'],
-    unique:true
+    unique: true
   },
   surname: {
     type: String,
@@ -43,7 +43,11 @@ const userSchema = new Schema({
     type: String,
     enum: ['37', '38', '39', '40', '41', '42', '43', '44']
   },
-  groupname: { type: String, required: true, default: 'main' },
+  groupname: {
+    type: String,
+    required: [true, 'groupname is required'],
+    default: 'main'
+  },
   equipments: { type: Array, default: [] },
   equipmentStatus: { type: String, default: '' },
   role: { type: String, default: 'ordinary' }
