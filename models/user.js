@@ -48,7 +48,7 @@ const userSchema = new Schema({
     required: [true, 'groupname is required'],
     default: 'main'
   },
-  equipments: { type: Array, default: [] },
+  equipment: { type: Array, default: [] },
   equipmentStatus: { type: String, default: '' },
   role: { type: String, default: 'ordinary' }
 });

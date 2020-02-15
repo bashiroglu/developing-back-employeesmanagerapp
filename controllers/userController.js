@@ -4,7 +4,6 @@ const GlobalError = require('../utils/GlobalError');
 const bcrypt = require('bcryptjs');
 const Email = require('../utils/email');
 
-
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -50,13 +49,13 @@ const addUsers = async (req, res, next) => {
     });
     await newUser.save();
 
-    new Email({
-      password: password,
-      fullname,
-      email,
-      groupname: newUser.groupname,
-      username
-    }).send(`Welcome to our company ${fullname}`);
+    // new Email({
+    //   password: password,
+    //   fullname,
+    //   email,
+    //   groupname: newUser.groupname,
+    //   username
+    // }).send(`Welcome to our company ${fullname}`);
   });
 
   res.json({ status: 'success' });
