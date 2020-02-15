@@ -61,8 +61,6 @@ const addUsers = async (req, res, next) => {
   res.json({ status: 'success' });
 };
 const activateUsers = async (req, res, next) => {
-  console.log(req.body);
-
   const { userIds } = req.body;
   userIds.map(async userId => {
     let user;
@@ -89,9 +87,36 @@ const getUser = async (req, res, next) => {
 
   res.json({ status: 'success', user });
 };
+const updateUser = async (req, res, next) => {
+  const {
+    email,
+    fullname,
+    username,
+    groupname,
+    shoeSize,
+    bodySize,
+    emailForUpdate
+  } = req.body;
+
+  let user;
+  try {
+    // I could also use findbyid and update
+    user = await User.findOne({ email });
+  } catch (error) {
+    console.log(error);
+  }
+  user.email = emailForUpdate ? emailForUpdate : user.email;
+  user.fullname = fullname ? fullname : user.fullname;
+  user.username = username ? username : user.username;
+  user.groupname = groupname ? groupname : user.groupname;
+  user.shoesize = shoeSize ? shoeSize : user.shoesize;
+  user.bodysize = bodySize ? bodySize : user.bodysize;
+  user.save();
+  res.json({ status: 'success', user });
+};
 exports.getUsers = getUsers;
 exports.getUser = getUser;
-// exports.updateUser = updateUser;
+exports.updateUser = updateUser;
 exports.getInactiveUsers = getInactiveUsers;
 exports.activateUsers = activateUsers;
 exports.addUsers = addUsers;
