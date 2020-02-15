@@ -93,8 +93,8 @@ const updateUser = async (req, res, next) => {
     fullname,
     username,
     groupname,
-    shoeSize,
-    bodySize,
+    shoesize,
+    bodysize,
     emailForUpdate
   } = req.body;
 
@@ -109,8 +109,8 @@ const updateUser = async (req, res, next) => {
   user.fullname = fullname ? fullname : user.fullname;
   user.username = username ? username : user.username;
   user.groupname = groupname ? groupname : user.groupname;
-  user.shoesize = shoeSize ? shoeSize : user.shoesize;
-  user.bodysize = bodySize ? bodySize : user.bodysize;
+  user.shoeSize = shoesize ? shoesize : user.shoesize;
+  user.bodySize = bodysize ? bodysize : user.bodysize;
   user.save();
   res.json({ status: 'success', user });
 };

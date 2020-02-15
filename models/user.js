@@ -37,7 +37,7 @@ const userSchema = new Schema({
   bookings: { type: String },
   bodySize: {
     type: String,
-    enum: ['xs', 's', 'l', 'xl', 'xxl']
+    enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
   },
   shoeSize: {
     type: String,
