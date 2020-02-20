@@ -5,8 +5,8 @@ const createPdf = (req, res) => {
   pdf
     .create(pdfTemplate(req.body), { directory: '/controllers' })
     .toFile('./PdfFiles/table.pdf', err => {
-        // console.log(req.body);
-        
+      // console.log(req.body);
+
       if (err) {
         res.send(Promise.reject());
       }
@@ -20,6 +20,7 @@ const getPdf = (req, res) => {
   );
   //   res.download(`${__dirname}/table.pdf`);
   console.log(__dirname);
+  // let reqPath = path.join(__dirname, '../../../');/ this can be solution to go back.
 };
 
 exports.createPdf = createPdf;

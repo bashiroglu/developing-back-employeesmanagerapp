@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const htmlPdfRoutes = require('./routes/htmlPdfRoutes');
 const GlobalError = require('./utils/GlobalError');
+
 const dotenv = require('dotenv');
 
 const app = express();
@@ -26,8 +27,21 @@ app.use(parser.json());
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/pdf', htmlPdfRoutes);
+
 app.all('*', (req, res, next) => {
   next(new GlobalError(`can not find ${req.originalUrl}`, 404));
+});
+app.use((error, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, err => {
+      console.log(err);
+    });
+  }
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
 mongoose
@@ -39,4 +53,3 @@ mongoose
     console.log('connected to DB successfully');
   })
   .catch(error => console.log(error));
-

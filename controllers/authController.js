@@ -86,7 +86,7 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(existingUser);
+  
 
   if (!existingUser.activeStatus) {
     const error = new GlobalError('this is not active user', 401);
