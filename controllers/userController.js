@@ -26,18 +26,22 @@ const addUsers = async (req, res, next) => {
   users.map(async user => {
     const { email, groupname, fullname } = user;
     let existingUser;
+    let errorOccure;
+    try {
+      existingUser = await User.findOne({ email });
 
-    existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return next(new GlobalError('This user is exist', 400));
-    }
+      if (existingUser) {
+        errorOccure = true;
+        return next(new GlobalError('This user is exist', 400));
+      }
+    } catch (error) {}
     const password = randomId();
 
     const username = `${email.split('@')[0]}_${randomId()}`;
     let hashedPassword;
-
-    hashedPassword = await bcrypt.hash(password, 12);
+    try {
+      hashedPassword = await bcrypt.hash(password, 12);
+    } catch (error) {}
 
     const newUser = new User({
       fullname,
@@ -47,18 +51,13 @@ const addUsers = async (req, res, next) => {
       groupname: groupname ? groupname : 'main',
       activeStatus: true
     });
-    await newUser.save();
-
-    // new Email({
-    //   password: password,
-    //   fullname,
-    //   email,
-    //   groupname: newUser.groupname,
-    //   username
-    // }).send(`Welcome to our company ${fullname}`);
+    try {
+      await newUser.save();
+    } catch (error) {}
   });
-
-  res.json({ status: 'success' });
+  if (!errorOccure) {
+    res.json({ status: 'success' });
+  }
 };
 const activateUsers = async (req, res, next) => {
   const { userIds } = req.body;

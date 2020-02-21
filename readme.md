@@ -24,4 +24,4 @@ This is the first project that is designed and coded by me. In some concepts, I 
 
 1. I always response success: 'done' or any other stupid response which don't give any information about process.
 
-2. if in client side email is updated which passible ith new route, application will be broken.
+2. if in client side email is updated which is possible with setting route, application will be broken.
