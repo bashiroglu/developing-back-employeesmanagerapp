@@ -20,18 +20,15 @@ const getInactiveUsers = async (req, res, next) => {
 };
 
 const addUsers = async (req, res, next) => {
-  console.log(req.body);
-
   const { users } = req.body;
   users.map(async user => {
     const { email, groupname, fullname } = user;
     let existingUser;
-    let errorOccure;
+
     try {
       existingUser = await User.findOne({ email });
 
       if (existingUser) {
-        errorOccure = true;
         return next(new GlobalError('This user is exist', 400));
       }
     } catch (error) {}
@@ -55,9 +52,8 @@ const addUsers = async (req, res, next) => {
       await newUser.save();
     } catch (error) {}
   });
-  if (!errorOccure) {
-    res.json({ status: 'success' });
-  }
+
+  res.json({ status: 'success' });
 };
 const activateUsers = async (req, res, next) => {
   const { userIds } = req.body;

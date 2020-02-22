@@ -32,7 +32,7 @@ app.all('*', (req, res, next) => {
   next(new GlobalError(`can not find ${req.originalUrl}`, 404));
 });
 app.use((error, req, res, next) => {
-  console.log(error);
+ 
 
   if (req.file) {
     fs.unlink(req.file.path, err => {
